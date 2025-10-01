@@ -1,8 +1,8 @@
-# :package_description
+# Implementation of the Ponto API in PHP
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
-[![Tests](https://img.shields.io/github/actions/workflow/status/:vendor_slug/:package_slug/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/:vendor_slug/:package_slug/actions/workflows/run-tests.yml)
-[![Total Downloads](https://img.shields.io/packagist/dt/:vendor_slug/:package_slug.svg?style=flat-square)](https://packagist.org/packages/:vendor_slug/:package_slug)
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/alchemicstudio/ponto-php.svg?style=flat-square)](https://packagist.org/packages/alchemicstudio/ponto-php)
+[![Tests](https://img.shields.io/github/actions/workflow/status/alchemicstudio/ponto-php/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/alchemicstudio/ponto-php/actions/workflows/run-tests.yml)
+[![Total Downloads](https://img.shields.io/packagist/dt/alchemicstudio/ponto-php.svg?style=flat-square)](https://packagist.org/packages/alchemicstudio/ponto-php)
 
 Implementation of the [Ponto API](https://documentation.myponto.com/1/api/curl) in PHP
 
@@ -11,14 +11,14 @@ Implementation of the [Ponto API](https://documentation.myponto.com/1/api/curl) 
 You can install the package via composer:
 
 ```bash
-composer require :vendor_slug/:package_slug
+composer require alchemicstudio/ponto-php
 ```
 
 ## Usage
 
 ```php
-$skeleton = new VendorName\Skeleton();
-echo $skeleton->echoPhrase('Hello, VendorName!');
+$skeleton = new AlchemicStudio\Ponto();
+echo $skeleton->echoPhrase('Hello, AlchemicStudio!');
 ```
 
 ## Testing
@@ -41,7 +41,7 @@ Please review [our security policy](../../security/policy) on how to report secu
 
 ## Credits
 
-- [:author_name](https://github.com/:author_username)
+- [Sébastien Denooz](https://github.com/AlchemicStudio)
 - [All Contributors](../../contributors)
 
 ## License
