@@ -6,6 +6,11 @@
 
 Implementation of the [Ponto API](https://documentation.myponto.com/1/api/curl) in PHP
 
+## /!\ This package is still in development. /!\
+
+You can find the development documentation [here](docs/developpement.md).
+
+
 ## Installation
 
 You can install the package via composer:
