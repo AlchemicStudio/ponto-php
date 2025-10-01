@@ -68,6 +68,6 @@ test('PontoException can be caught as Exception', function () {
 });
 
 test('PontoException can be thrown and caught', function () {
-    expect(fn() => throw new PontoException('Test error'))
+    expect(fn () => throw new PontoException('Test error'))
         ->toThrow(PontoException::class, 'Test error');
 });

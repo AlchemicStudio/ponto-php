@@ -3,13 +3,13 @@
 declare(strict_types=1);
 
 use AlchemicStudio\Ponto\Client;
+use AlchemicStudio\Ponto\Exceptions\AuthenticationException;
+use AlchemicStudio\Ponto\Exceptions\NotFoundException;
 use AlchemicStudio\Ponto\Models\Account;
-use AlchemicStudio\Ponto\Models\Transaction;
+use AlchemicStudio\Ponto\Models\PaginatedCollection;
 use AlchemicStudio\Ponto\Models\Payment;
 use AlchemicStudio\Ponto\Models\Synchronization;
-use AlchemicStudio\Ponto\Models\PaginatedCollection;
-use AlchemicStudio\Ponto\Exceptions\NotFoundException;
-use AlchemicStudio\Ponto\Exceptions\AuthenticationException;
+use AlchemicStudio\Ponto\Models\Transaction;
 
 /**
  * Integration tests against Ponto Sandbox API
@@ -24,7 +24,7 @@ use AlchemicStudio\Ponto\Exceptions\AuthenticationException;
 
 beforeEach(function () {
     // Skip if sandbox credentials not configured
-    if (!getenv('PONTO_SANDBOX_CLIENT_ID') || !getenv('PONTO_SANDBOX_CLIENT_SECRET')) {
+    if (! getenv('PONTO_SANDBOX_CLIENT_ID') || ! getenv('PONTO_SANDBOX_CLIENT_SECRET')) {
         test()->markTestSkipped('Sandbox credentials not configured. Set PONTO_SANDBOX_CLIENT_ID and PONTO_SANDBOX_CLIENT_SECRET environment variables.');
     }
 
@@ -94,7 +94,7 @@ test('getting non-existent account throws NotFoundException', function () {
 test('can paginate through accounts', function () {
     $firstPage = $this->client->accounts()->list(limit: 2);
 
-    if (!$firstPage->hasNextPage()) {
+    if (! $firstPage->hasNextPage()) {
         test()->markTestSkipped('Not enough accounts for pagination test');
     }
 
@@ -196,7 +196,7 @@ test('can check payment scope availability', function () {
 })->group('integration', 'payments');
 
 test('can create payment in sandbox', function () {
-    if (!$this->client->hasPaymentScope()) {
+    if (! $this->client->hasPaymentScope()) {
         test()->markTestSkipped('Payment initiation scope not available');
     }
 

@@ -2,12 +2,12 @@
 
 declare(strict_types=1);
 
-use AlchemicStudio\Ponto\Services\AccountService;
+use AlchemicStudio\Ponto\Exceptions\NotFoundException;
+use AlchemicStudio\Ponto\Exceptions\ValidationException;
 use AlchemicStudio\Ponto\Http\HttpClient;
 use AlchemicStudio\Ponto\Models\Account;
 use AlchemicStudio\Ponto\Models\PaginatedCollection;
-use AlchemicStudio\Ponto\Exceptions\NotFoundException;
-use AlchemicStudio\Ponto\Exceptions\ValidationException;
+use AlchemicStudio\Ponto\Services\AccountService;
 
 beforeEach(function () {
     $this->httpClient = Mockery::mock(HttpClient::class);

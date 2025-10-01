@@ -178,7 +178,7 @@ test('Account with large balance', function () {
 test('Account readonly properties cannot be modified', function () {
     $account = Account::fromArray(mockAccountData());
 
-    expect(fn() => $account->id = 'new-id')
+    expect(fn () => $account->id = 'new-id')
         ->toThrow(\Error::class);
 });
 

@@ -191,7 +191,7 @@ test('Synchronization toArray returns correct structure', function () {
 test('Synchronization readonly properties cannot be modified', function () {
     $sync = Synchronization::fromArray(mockSynchronizationData());
 
-    expect(fn() => $sync->status = 'success')
+    expect(fn () => $sync->status = 'success')
         ->toThrow(\Error::class);
 });
 

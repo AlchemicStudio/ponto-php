@@ -199,7 +199,7 @@ test('Payment toArray returns correct structure', function () {
 test('Payment readonly properties cannot be modified', function () {
     $payment = Payment::fromArray(mockPaymentData());
 
-    expect(fn() => $payment->amount = 999.99)
+    expect(fn () => $payment->amount = 999.99)
         ->toThrow(\Error::class);
 });
 

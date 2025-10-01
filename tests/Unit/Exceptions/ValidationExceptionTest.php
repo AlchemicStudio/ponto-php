@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use AlchemicStudio\Ponto\Exceptions\ValidationException;
 use AlchemicStudio\Ponto\Exceptions\PontoException;
+use AlchemicStudio\Ponto\Exceptions\ValidationException;
 
 test('ValidationException extends PontoException', function () {
     $exception = new ValidationException('Validation failed');

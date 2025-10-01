@@ -3,8 +3,6 @@
 declare(strict_types=1);
 
 use AlchemicStudio\Ponto\Models\PaginatedCollection;
-use AlchemicStudio\Ponto\Models\Account;
-use AlchemicStudio\Ponto\Models\Transaction;
 
 test('can create PaginatedCollection from array', function () {
     $data = [mockAccountData(), mockAccountData()];
@@ -159,7 +157,7 @@ test('PaginatedCollection with both cursors', function () {
 test('PaginatedCollection readonly properties cannot be modified', function () {
     $collection = PaginatedCollection::fromArray([], ['paging' => ['limit' => 20]], []);
 
-    expect(fn() => $collection->limit = 50)
+    expect(fn () => $collection->limit = 50)
         ->toThrow(\Error::class);
 });
 
@@ -168,12 +166,12 @@ test('PaginatedCollection data is readonly array', function () {
     $collection = PaginatedCollection::fromArray($data, ['paging' => []], []);
 
     expect($collection->data)->toBeArray()
-        ->and(fn() => $collection->data = [])
+        ->and(fn () => $collection->data = [])
         ->toThrow(\Error::class);
 });
 
 test('PaginatedCollection handles large datasets', function () {
-    $data = array_map(fn() => mockAccountData(), range(1, 100));
+    $data = array_map(fn () => mockAccountData(), range(1, 100));
     $collection = PaginatedCollection::fromArray($data, ['paging' => ['limit' => 100]], []);
 
     expect($collection->count())->toBe(100)

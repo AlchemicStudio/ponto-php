@@ -215,7 +215,7 @@ test('Transaction toArray returns correct structure', function () {
 test('Transaction readonly properties cannot be modified', function () {
     $transaction = Transaction::fromArray(mockTransactionData());
 
-    expect(fn() => $transaction->amount = 999.99)
+    expect(fn () => $transaction->amount = 999.99)
         ->toThrow(\Error::class);
 });
 

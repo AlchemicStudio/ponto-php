@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use AlchemicStudio\Ponto\Utils\Validator;
 use AlchemicStudio\Ponto\Exceptions\ValidationException;
+use AlchemicStudio\Ponto\Utils\Validator;
 
 // IBAN Validation Tests
 
@@ -110,19 +110,19 @@ test('rejects BIC with special characters', function () {
 // Amount Validation Tests
 
 test('validates positive amount', function () {
-    expect(fn() => Validator::validateAmount(100.50))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(100.50))->not->toThrow(ValidationException::class);
 });
 
 test('validates small positive amount', function () {
-    expect(fn() => Validator::validateAmount(0.01))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(0.01))->not->toThrow(ValidationException::class);
 });
 
 test('validates large amount', function () {
-    expect(fn() => Validator::validateAmount(999999.99))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(999999.99))->not->toThrow(ValidationException::class);
 });
 
 test('validates integer amount', function () {
-    expect(fn() => Validator::validateAmount(100.0))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(100.0))->not->toThrow(ValidationException::class);
 });
 
 test('rejects negative amount', function () {
@@ -142,11 +142,11 @@ test('rejects amount exceeding maximum', function () {
 })->throws(ValidationException::class, 'Amount too large');
 
 test('validates maximum allowed amount', function () {
-    expect(fn() => Validator::validateAmount(999999999.99))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(999999999.99))->not->toThrow(ValidationException::class);
 });
 
 test('validates minimum allowed amount', function () {
-    expect(fn() => Validator::validateAmount(0.01))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateAmount(0.01))->not->toThrow(ValidationException::class);
 });
 
 // Currency Validation Tests
@@ -249,7 +249,7 @@ test('validates remittance with apostrophe', function () {
 test('validates maximum length remittance', function () {
     $info = str_repeat('A', 140);
 
-    expect(fn() => Validator::validateRemittanceInfo($info))->not->toThrow(ValidationException::class);
+    expect(fn () => Validator::validateRemittanceInfo($info))->not->toThrow(ValidationException::class);
 });
 
 test('rejects remittance exceeding max length', function () {

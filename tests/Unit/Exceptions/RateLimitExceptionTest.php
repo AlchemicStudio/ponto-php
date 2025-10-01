@@ -2,8 +2,8 @@
 
 declare(strict_types=1);
 
-use AlchemicStudio\Ponto\Exceptions\RateLimitException;
 use AlchemicStudio\Ponto\Exceptions\PontoException;
+use AlchemicStudio\Ponto\Exceptions\RateLimitException;
 
 test('RateLimitException extends PontoException', function () {
     $exception = new RateLimitException('Rate limit exceeded');
