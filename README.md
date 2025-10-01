@@ -29,13 +29,21 @@ The project uses Pest for testing. You can run the tests with:
 composer test
 ```
 
+## PHPStan
+
+The project uses PHPStan for static analysis. You can run the tests with:
+
+```bash
+composer stan
+```
+
 ## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 
