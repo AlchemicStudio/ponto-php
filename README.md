@@ -23,6 +23,8 @@ echo $skeleton->echoPhrase('Hello, AlchemicStudio!');
 
 ## Testing
 
+The project uses Pest for testing. You can run the tests with:
+
 ```bash
 composer test
 ```
