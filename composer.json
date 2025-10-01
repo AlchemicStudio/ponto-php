@@ -18,8 +18,9 @@
         "php": "^8.4"
     },
     "require-dev": {
-        "pestphp/pest": "^4.0",
         "friendsofphp/php-cs-fixer": "^3.21.1",
+        "pestphp/pest": "^4.1",
+        "phpstan/phpstan": "^2.1",
         "spatie/ray": "^1.28"
     },
     "autoload": {
@@ -34,8 +35,9 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
-            "test-coverage": "vendor/bin/pest --coverage",
-        "format": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes"
+        "test-coverage": "vendor/bin/pest --coverage",
+        "format": "vendor/bin/php-cs-fixer fix --config=.php-cs-fixer.dist.php --allow-risky=yes",
+        "stan": "vendor/bin/phpstan analyse src tests --level=max"
     },
     "config": {
         "sort-packages": true,

@@ -6,6 +6,11 @@
 
 Implementation of the [Ponto API](https://documentation.myponto.com/1/api/curl) in PHP
 
+## /!\ This package is still in development. /!\
+
+You can find the development documentation [here](docs/developpement.md).
+
+
 ## Installation
 
 You can install the package via composer:
@@ -23,8 +28,18 @@ echo $skeleton->echoPhrase('Hello, AlchemicStudio!');
 
 ## Testing
 
+The project uses Pest for testing. You can run the tests with:
+
 ```bash
 composer test
+```
+
+## PHPStan
+
+The project uses PHPStan for static analysis. You can run the tests with:
+
+```bash
+composer stan
 ```
 
 ## Changelog
@@ -33,7 +48,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed re
 
 ## Contributing
 
-Please see [CONTRIBUTING](https://github.com/spatie/.github/blob/main/CONTRIBUTING.md) for details.
+Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 ## Security Vulnerabilities
 

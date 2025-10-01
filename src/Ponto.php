@@ -2,6 +2,6 @@
 
 namespace AlchemicStudio\Ponto;
 
-class PontoClass
+class Ponto
 {
 }
