@@ -79,7 +79,7 @@ function mockJsonApiResponse(array $data, array $meta = [], array $links = []): 
  */
 function mockAccountData(array $overrides = []): array
 {
-    return array_merge([
+    $defaults = [
         'id' => 'acc-' . uniqid(),
         'type' => 'account',
         'attributes' => [
@@ -107,7 +107,20 @@ function mockAccountData(array $overrides = []): array
         'meta' => [
             'synchronizedAt' => '2024-02-20T10:00:00Z',
         ],
-    ], $overrides);
+    ];
+
+    // Deep merge attributes
+    if (isset($overrides['attributes'])) {
+        $overrides['attributes'] = array_merge($defaults['attributes'], $overrides['attributes']);
+    }
+    if (isset($overrides['relationships'])) {
+        $overrides['relationships'] = array_merge($defaults['relationships'], $overrides['relationships']);
+    }
+    if (isset($overrides['meta'])) {
+        $overrides['meta'] = array_merge($defaults['meta'], $overrides['meta']);
+    }
+
+    return array_merge($defaults, $overrides);
 }
 
 /**
@@ -115,7 +128,7 @@ function mockAccountData(array $overrides = []): array
  */
 function mockTransactionData(array $overrides = []): array
 {
-    return array_merge([
+    $defaults = [
         'id' => 'tx-' . uniqid(),
         'type' => 'transaction',
         'attributes' => [
@@ -138,7 +151,17 @@ function mockTransactionData(array $overrides = []): array
                 'data' => ['id' => 'acc-123', 'type' => 'account'],
             ],
         ],
-    ], $overrides);
+    ];
+
+    // Deep merge attributes
+    if (isset($overrides['attributes'])) {
+        $overrides['attributes'] = array_merge($defaults['attributes'], $overrides['attributes']);
+    }
+    if (isset($overrides['relationships'])) {
+        $overrides['relationships'] = array_merge($defaults['relationships'], $overrides['relationships']);
+    }
+
+    return array_merge($defaults, $overrides);
 }
 
 /**
@@ -146,7 +169,7 @@ function mockTransactionData(array $overrides = []): array
  */
 function mockPaymentData(array $overrides = []): array
 {
-    return array_merge([
+    $defaults = [
         'id' => 'pay-' . uniqid(),
         'type' => 'payment',
         'attributes' => [
@@ -165,7 +188,17 @@ function mockPaymentData(array $overrides = []): array
         'links' => [
             'redirect' => 'https://authorize.myponto.com/payment/pay-123',
         ],
-    ], $overrides);
+    ];
+
+    // Deep merge attributes
+    if (isset($overrides['attributes'])) {
+        $overrides['attributes'] = array_merge($defaults['attributes'], $overrides['attributes']);
+    }
+    if (isset($overrides['links'])) {
+        $overrides['links'] = array_merge($defaults['links'], $overrides['links']);
+    }
+
+    return array_merge($defaults, $overrides);
 }
 
 /**
@@ -173,7 +206,7 @@ function mockPaymentData(array $overrides = []): array
  */
 function mockSynchronizationData(array $overrides = []): array
 {
-    return array_merge([
+    $defaults = [
         'id' => 'sync-' . uniqid(),
         'type' => 'synchronization',
         'attributes' => [
@@ -185,5 +218,12 @@ function mockSynchronizationData(array $overrides = []): array
             'createdAt' => '2024-02-20T10:00:00Z',
             'updatedAt' => '2024-02-20T10:00:00Z',
         ],
-    ], $overrides);
+    ];
+
+    // Deep merge attributes
+    if (isset($overrides['attributes'])) {
+        $overrides['attributes'] = array_merge($defaults['attributes'], $overrides['attributes']);
+    }
+
+    return array_merge($defaults, $overrides);
 }
