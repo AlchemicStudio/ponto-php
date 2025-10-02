@@ -4,23 +4,27 @@ declare(strict_types=1);
 
 namespace AlchemicStudio\Ponto\Models;
 
+use DateMalformedStringException;
 use DateTimeImmutable;
 
-class Synchronization
+readonly class Synchronization
 {
     public function __construct(
-        public readonly string $id,
-        public readonly string $type,
-        public readonly string $status,
-        public readonly string $resourceType,
-        public readonly string $resourceId,
-        public readonly string $subtype,
-        public readonly array $errors,
-        public readonly DateTimeImmutable $createdAt,
-        public readonly DateTimeImmutable $updatedAt,
+        public string            $id,
+        public string            $type,
+        public string            $status,
+        public string            $resourceType,
+        public string            $resourceId,
+        public string            $subtype,
+        public array             $errors,
+        public DateTimeImmutable $createdAt,
+        public DateTimeImmutable $updatedAt,
     ) {
     }
 
+    /**
+     * @throws DateMalformedStringException
+     */
     public static function fromArray(array $data): self
     {
         $attributes = $data['attributes'] ?? [];

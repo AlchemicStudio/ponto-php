@@ -76,7 +76,7 @@ test('validates valid 11-character BIC', function () {
 });
 
 test('validates BIC with spaces', function () {
-    $bic = Validator::validateBic('NBBEEBB 203');
+    $bic = Validator::validateBic('GKC CBEB BXXX');
 
     expect($bic)->toBe('NBBEBEBB203');
 });

@@ -24,7 +24,7 @@ class Validator
         }
 
         // Check format: 2 letters + 2 digits + alphanumeric
-        if (!preg_match('/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/', $normalized)) {
+        if (! preg_match('/^[A-Z]{2}[0-9]{2}[A-Z0-9]+$/', $normalized)) {
             throw new ValidationException('Invalid IBAN format');
         }
 
@@ -52,8 +52,8 @@ class Validator
         }
 
         // Check format: 6 letters + 2 alphanumeric + optional 3 alphanumeric
-        if (!preg_match('/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/', $normalized)) {
-            throw new ValidationException('Invalid BIC format');
+        if (! preg_match('/^[A-Z]{6}[A-Z0-9]{2}([A-Z0-9]{3})?$/', $normalized)) {
+            throw new ValidationException('Invalid BIC format: ' . $normalized);
         }
 
         return $normalized;
@@ -91,7 +91,7 @@ class Validator
         }
 
         // Check format: exactly 3 letters
-        if (!preg_match('/^[A-Z]{3}$/', $normalized)) {
+        if (! preg_match('/^[A-Z]{3}$/', $normalized)) {
             throw new ValidationException('Invalid currency code');
         }
 
@@ -116,7 +116,7 @@ class Validator
         }
 
         // Check for allowed characters: alphanumeric, space, +, -, ., ,, /, :, (, ), ?, '
-        if (!preg_match('/^[a-zA-Z0-9 +\-.,\/:()?\'\+]+$/', $info)) {
+        if (! preg_match('/^[a-zA-Z0-9 +\-.,\/:()?\'\+]+$/', $info)) {
             throw new ValidationException('Remittance information contains invalid characters');
         }
 

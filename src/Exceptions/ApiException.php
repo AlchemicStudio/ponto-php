@@ -10,6 +10,9 @@ class ApiException extends PontoException
 {
     private ?string $errorCode;
 
+    /**
+     * @param array<string, mixed>|null $errorDetails
+     */
     public function __construct(
         string $message,
         int $code,

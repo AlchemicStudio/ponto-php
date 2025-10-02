@@ -69,11 +69,11 @@ test('Account isDeprecated returns correct value', function () {
 test('Account needsReauthorization when expiration is soon', function () {
     $soonExpiring = Account::fromArray(mockAccountData([
         'attributes' => [
-            'authorizationExpirationExpectedAt' => (new DateTimeImmutable('+5 days'))->format('Y-m-d\TH:i:s\Z'),
+            'authorizationExpirationExpectedAt' => new DateTimeImmutable('+5 days')->format('Y-m-d\TH:i:s\Z'),
         ],
     ]));
 
-    $account = Account::fromArray($soonExpiring);
+    $account = Account::fromArray($soonExpiring->toArray());
 
     expect($account->needsReauthorization())->toBeTrue();
 });
@@ -81,11 +81,11 @@ test('Account needsReauthorization when expiration is soon', function () {
 test('Account needsReauthorization when expiration is far', function () {
     $farExpiring = Account::fromArray(mockAccountData([
         'attributes' => [
-            'authorizationExpirationExpectedAt' => (new DateTimeImmutable('+60 days'))->format('Y-m-d\TH:i:s\Z'),
+            'authorizationExpirationExpectedAt' => new DateTimeImmutable('+60 days')->format('Y-m-d\TH:i:s\Z'),
         ],
     ]));
 
-    $account = Account::fromArray($farExpiring);
+    $account = Account::fromArray($farExpiring->toArray());
 
     expect($account->needsReauthorization())->toBeFalse();
 });

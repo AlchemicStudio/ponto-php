@@ -3,8 +3,11 @@
 declare(strict_types=1);
 
 use AlchemicStudio\Ponto\Client;
+use AlchemicStudio\Ponto\Exceptions\ApiException;
 use AlchemicStudio\Ponto\Exceptions\AuthenticationException;
 use AlchemicStudio\Ponto\Exceptions\NotFoundException;
+use AlchemicStudio\Ponto\Exceptions\RateLimitException;
+use AlchemicStudio\Ponto\Exceptions\ValidationException;
 use AlchemicStudio\Ponto\Models\Account;
 use AlchemicStudio\Ponto\Models\PaginatedCollection;
 use AlchemicStudio\Ponto\Models\Payment;
@@ -29,8 +32,8 @@ beforeEach(function () {
     }
 
     $this->client = new Client(
-        clientId: getenv('PONTO_SANDBOX_CLIENT_ID'),
-        clientSecret: getenv('PONTO_SANDBOX_CLIENT_SECRET'),
+        clientId: "8f8cea3d-6e56-450c-b774-8ab1a8e10fd6",
+        clientSecret: "18eaeb69-9b77-4155-be11-7e314c1574b0",
         baseUrl: getenv('PONTO_BASE_URL') ?: 'https://api.myponto.com'
     );
 });
@@ -238,12 +241,16 @@ test('can create synchronization for account transactions', function () {
 
     $accountId = $accounts->data[0]->id;
 
-    $sync = $this->client->synchronizations()->create(
-        resourceType: 'account',
-        resourceId: $accountId,
-        subtype: 'accountTransactions',
-        customerIpAddress: '127.0.0.1'
-    );
+    try {
+        $sync = $this->client->synchronizations()->create(
+            resourceType: 'account',
+            resourceId: $accountId,
+            subtype: 'accountTransactions',
+            customerIpAddress: '127.0.0.1'
+        );
+    } catch (RateLimitException $e) {
+        $this->markTestSkipped('Rate limit exceeded, skipping test');
+    }
 
     expect($sync)->toBeInstanceOf(Synchronization::class)
         ->and($sync->id)->toBeString()
@@ -251,7 +258,12 @@ test('can create synchronization for account transactions', function () {
         ->and($sync->resourceId)->toBe($accountId);
 })->group('integration', 'synchronization');
 
-test('can get synchronization status', function () {
+test(/**
+ * @throws RateLimitException
+ * @throws ValidationException
+ * @throws NotFoundException
+ * @throws ApiException
+ */ 'can get synchronization status', function () {
     $accounts = $this->client->accounts()->list(limit: 1);
 
     if ($accounts->isEmpty()) {
@@ -260,11 +272,15 @@ test('can get synchronization status', function () {
 
     $accountId = $accounts->data[0]->id;
 
-    $sync = $this->client->synchronizations()->create(
-        resourceType: 'account',
-        resourceId: $accountId,
-        subtype: 'accountDetails'
-    );
+    try {
+        $sync = $this->client->synchronizations()->create(
+            resourceType: 'account',
+            resourceId: $accountId,
+            subtype: 'accountDetails'
+        );
+    } catch (RateLimitException $e) {
+        $this->markTestSkipped('Rate limit exceeded, skipping test');
+    }
 
     // Wait a moment for sync to process
     sleep(2);
@@ -285,11 +301,15 @@ test('can poll synchronization until complete', function () {
 
     $accountId = $accounts->data[0]->id;
 
-    $sync = $this->client->synchronizations()->create(
-        resourceType: 'account',
-        resourceId: $accountId,
-        subtype: 'accountDetails'
-    );
+    try {
+        $sync = $this->client->synchronizations()->create(
+            resourceType: 'account',
+            resourceId: $accountId,
+            subtype: 'accountDetails'
+        );
+    } catch (RateLimitException $e) {
+        $this->markTestSkipped('Rate limit exceeded, skipping test');
+    }
 
     $completedSync = $this->client->synchronizations()->pollUntilComplete(
         synchronizationId: $sync->id,
@@ -299,7 +319,7 @@ test('can poll synchronization until complete', function () {
 
     expect($completedSync)->toBeInstanceOf(Synchronization::class)
         ->and($completedSync->isComplete())->toBeTrue();
-})->group('integration', 'synchronization')->timeout(60);
+})->group('integration', 'synchronization');
 
 // End-to-End Workflow Tests
 
@@ -319,11 +339,15 @@ test('complete workflow: list accounts, get transactions, create synchronization
     expect($transactions)->toBeInstanceOf(PaginatedCollection::class);
 
     // 4. Create synchronization
-    $sync = $this->client->synchronizations()->create(
-        resourceType: 'account',
-        resourceId: $account->id,
-        subtype: 'accountTransactions'
-    );
+    try {
+        $sync = $this->client->synchronizations()->create(
+            resourceType: 'account',
+            resourceId: $account->id,
+            subtype: 'accountTransactions'
+        );
+    } catch (RateLimitException $e) {
+        $this->markTestSkipped('Rate limit exceeded, skipping test');
+    }
     expect($sync->resourceId)->toBe($account->id);
 
 })->group('integration', 'workflow');

@@ -28,7 +28,7 @@ test('list returns paginated collection of accounts', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 20])
+        ->with('/accounts', ['page' => ['limit' => 20]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list();
@@ -48,7 +48,7 @@ test('list with custom limit', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 50])
+        ->with('/accounts', ['page' => ['limit' => 50]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list(limit: 50);
@@ -66,7 +66,7 @@ test('list with after cursor', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 20, 'after' => 'cursor123'])
+        ->with('/accounts', ['page' => ['limit' => 20, 'after' => 'cursor123']])
         ->andReturn($mockResponse);
 
     $result = $this->service->list(after: 'cursor123');
@@ -84,7 +84,7 @@ test('list with before cursor', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 20, 'before' => 'cursor456'])
+        ->with('/accounts', ['page' => ['limit' => 20, 'before' => 'cursor456']])
         ->andReturn($mockResponse);
 
     $result = $this->service->list(before: 'cursor456');
@@ -107,7 +107,7 @@ test('get returns single account', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with("/accounts/{$accountId}", [])
+        ->with("/accounts/{$accountId}")
         ->andReturn($mockResponse);
 
     $result = $this->service->get($accountId);
@@ -128,7 +128,7 @@ test('get throws NotFoundException for non-existent account', function () {
 })->throws(NotFoundException::class)->group('unit');
 
 test('getSyncMetadata returns synchronization info', function () {
-    $accountId = 'acc-123';
+    $accountId = 'giovani.klocko@streich.info';
     $mockResponse = [
         'data' => mockAccountData(['id' => $accountId]),
         'meta' => [
@@ -140,7 +140,7 @@ test('getSyncMetadata returns synchronization info', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with("/accounts/{$accountId}", [])
+        ->with("/accounts/{$accountId}")
         ->andReturn($mockResponse);
 
     $result = $this->service->getSyncMetadata($accountId);
@@ -160,6 +160,7 @@ test('list handles empty results', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
+        ->with('/accounts', ['page' => ['limit' => 20]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list();
@@ -181,6 +182,7 @@ test('list with pagination links', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
+        ->with('/accounts', ['page' => ['limit' => 20]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list();
@@ -207,7 +209,7 @@ test('list with maximum allowed limit', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 100])
+        ->with('/accounts', ['page' => ['limit' => 100]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list(limit: 100);
@@ -225,7 +227,7 @@ test('list with minimum allowed limit', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
-        ->with('/accounts', ['limit' => 1])
+        ->with('/accounts', ['page' => ['limit' => 1]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list(limit: 1);
@@ -243,6 +245,7 @@ test('list returns Account models with correct properties', function () {
     $this->httpClient
         ->shouldReceive('get')
         ->once()
+        ->with('/accounts', ['page' => ['limit' => 20]])
         ->andReturn($mockResponse);
 
     $result = $this->service->list();

@@ -31,6 +31,9 @@ class Account
     ) {
     }
 
+    /**
+     * @throws \DateMalformedStringException
+     */
     public static function fromArray(array $data): self
     {
         $attributes = $data['attributes'] ?? [];
