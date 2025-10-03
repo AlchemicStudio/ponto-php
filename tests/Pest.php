@@ -194,9 +194,6 @@ function mockPaymentData(array $overrides = []): array
     if (isset($overrides['attributes'])) {
         $overrides['attributes'] = array_merge($defaults['attributes'], $overrides['attributes']);
     }
-    if (isset($overrides['links'])) {
-        $overrides['links'] = array_merge($defaults['links'], $overrides['links']);
-    }
 
     return array_merge($defaults, $overrides);
 }

@@ -47,7 +47,32 @@ test('rejects IBAN without country code', function () {
 
 test('rejects IBAN with invalid country code', function () {
     Validator::validateIban('XX68539007547034');
-})->throws(ValidationException::class);
+})->throws(ValidationException::class, 'Invalid IBAN country code');
+
+test('validates various valid IBAN country codes', function () {
+    $validIbans = [
+        'GB82WEST12345698765432', // United Kingdom
+        'NL91ABNA0417164300',     // Netherlands
+        'IT60X0542811101000000123456', // Italy
+        'ES9121000418450200051332', // Spain
+        'CH9300762011623852957',   // Switzerland
+        'AT611904300234573201',    // Austria
+        'PL61109010140000071219812874', // Poland
+        'SE4550000000058398257466', // Sweden
+    ];
+
+    foreach ($validIbans as $iban) {
+        expect(fn () => Validator::validateIban($iban))->not->toThrow(ValidationException::class);
+    }
+});
+
+test('rejects IBAN with non-existent country code ZZ', function () {
+    Validator::validateIban('ZZ1234567890123456');
+})->throws(ValidationException::class, 'Invalid IBAN country code: ZZ');
+
+test('rejects IBAN with non-existent country code AA', function () {
+    Validator::validateIban('AA1234567890123456');
+})->throws(ValidationException::class, 'Invalid IBAN country code: AA');
 
 test('rejects IBAN with special characters', function () {
     Validator::validateIban('BE68-5390-0754-7034');
@@ -78,7 +103,7 @@ test('validates valid 11-character BIC', function () {
 test('validates BIC with spaces', function () {
     $bic = Validator::validateBic('GKC CBEB BXXX');
 
-    expect($bic)->toBe('NBBEBEBB203');
+    expect($bic)->toBe('GKCCBEBBXXX');
 });
 
 test('validates BIC converts to uppercase', function () {

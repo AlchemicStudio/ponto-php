@@ -9,6 +9,21 @@ use AlchemicStudio\Ponto\Exceptions\ValidationException;
 class Validator
 {
     /**
+     * Valid IBAN country codes based on the IBAN registry
+     * Includes all countries that participate in the IBAN system
+     */
+    private const VALID_IBAN_COUNTRY_CODES = [
+        'AD', 'AE', 'AL', 'AT', 'AZ', 'BA', 'BE', 'BG', 'BH', 'BR',
+        'BY', 'CH', 'CR', 'CY', 'CZ', 'DE', 'DK', 'DO', 'EE', 'EG',
+        'ES', 'FI', 'FO', 'FR', 'GB', 'GE', 'GI', 'GL', 'GR', 'GT',
+        'HR', 'HU', 'IE', 'IL', 'IQ', 'IS', 'IT', 'JO', 'KW', 'KZ',
+        'LB', 'LC', 'LI', 'LT', 'LU', 'LV', 'LY', 'MC', 'MD', 'ME',
+        'MK', 'MR', 'MT', 'MU', 'NL', 'NO', 'PK', 'PL', 'PS', 'PT',
+        'QA', 'RO', 'RS', 'SA', 'SE', 'SI', 'SK', 'SM', 'ST', 'SV',
+        'TL', 'TN', 'TR', 'UA', 'VA', 'VG', 'XK',
+    ];
+
+    /**
      * Validate and normalize IBAN
      *
      * @throws ValidationException
@@ -31,6 +46,13 @@ class Validator
         // Check minimum length
         if (strlen($normalized) < 15) {
             throw new ValidationException('Invalid IBAN format');
+        }
+
+        // Extract and validate country code
+        $countryCode = substr($normalized, 0, 2);
+
+        if (! in_array($countryCode, self::VALID_IBAN_COUNTRY_CODES, true)) {
+            throw new ValidationException('Invalid IBAN country code: ' . $countryCode);
         }
 
         return $normalized;
