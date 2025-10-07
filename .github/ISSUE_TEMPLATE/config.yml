@@ -1,11 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-    - name: Report a security bug
-      url: https://github.com/AlchemicStudio/ponto-php/security/policy
-      about: Report a security bug
-    - name: Report a Bug
-      url: https://github.com/AlchemicStudio/ponto-php/issues/new
-      about: Report a reproductible bug
     - name: Feature Request
       url: https://github.com/AlchemicStudio/ponto-php/discussions/new?category=ideas
       about: Share ideas for new features
